@@ -1,3 +1,7 @@
+package Controler;
+
+import Model.Currency;
+import Model.CurrencyContener;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 
@@ -51,8 +55,8 @@ public class SaxHandler extends DefaultHandler {
 
     }
 
-    public HashMap<String, Currency> getCurrencyMap(){
-        return currMap;
+    public CurrencyContener getCurrencyContener(){
+        return new CurrencyContener(currMap);
     }
 }
 

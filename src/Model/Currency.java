@@ -1,4 +1,6 @@
-class Currency {
+package Model;
+
+public class Currency {
     private Integer scaler;
     private Double rate;
     private String code;

@@ -1,5 +1,11 @@
+package Controler;
+
+import Model.Currency;
+import Model.CurrencyContener;
+
 public class Converter {
     private final CurrencyContener currencyContener;
+
     public Converter(CurrencyContener currencyContener){
         this.currencyContener = currencyContener;
     }
@@ -16,7 +22,7 @@ public class Converter {
         return plnToOther(to, otherToPln(from, value));
     }
 
-    Double convert(String from, String to, Double value){
+    public Double convert(String from, String to, Double value){
         if(from.equals("PLN"))
             return plnToOther(currencyContener.getCurrency(to), value);
         else if(to.equals("PLN"))

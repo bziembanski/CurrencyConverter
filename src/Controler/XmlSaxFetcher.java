@@ -1,3 +1,7 @@
+package Controler;
+
+import Model.Currency;
+import Model.CurrencyContener;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -9,7 +13,7 @@ import java.util.HashMap;
 
 public class XmlSaxFetcher implements Fetcher{
     @Override
-    public HashMap<String, Currency> getData(String path) {
+    public CurrencyContener getData(String path) {
         try{
             SAXParserFactory factory = SAXParserFactory.newInstance();
             SAXParser saxParser = factory.newSAXParser();
@@ -17,7 +21,7 @@ public class XmlSaxFetcher implements Fetcher{
             SaxHandler handler = new SaxHandler();
             saxParser.parse(new File("src/lasta.xml"), handler);
 
-            return handler.getCurrencyMap();
+            return handler.getCurrencyContener();
 
         }
         catch (ParserConfigurationException | SAXException | IOException e){

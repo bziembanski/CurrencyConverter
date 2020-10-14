@@ -1,4 +1,4 @@
-package Controler;
+package Model;
 
 import Model.Currency;
 import Model.CurrencyContener;
@@ -22,10 +22,10 @@ public class Converter {
         return plnToOther(to, otherToPln(from, value));
     }
 
-    public Double convert(String from, String to, Double value){
-        if(from.equals("PLN"))
+    public Double convert(int from, int to, Double value){
+        if(from == 0)
             return plnToOther(currencyContener.getCurrency(to), value);
-        else if(to.equals("PLN"))
+        else if(to == 0)
             return otherToPln(currencyContener.getCurrency(from), value);
         else
             return otherToOther(currencyContener.getCurrency(from), currencyContener.getCurrency(to), value);

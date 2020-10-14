@@ -3,24 +3,21 @@ package Model;
 import java.util.*;
 
 public class CurrencyContener {
-    private final HashMap<String, Currency> _contener;
-    public CurrencyContener(HashMap<String, Currency> contener){
+    private final ArrayList<Currency> _contener;
+    public CurrencyContener(ArrayList<Currency> contener){
         _contener=contener;
     }
 
-    public Currency getCurrency(String code){
-        return _contener.get(code);
+    public Currency getCurrency(int index){
+        return _contener.get(index);
     }
 
-    public List<AbstractMap.SimpleImmutableEntry<String,String>> getCurrencyList(){
-        List<AbstractMap.SimpleImmutableEntry<String,String>> list = new ArrayList<>();
-        for (Map.Entry<String, Currency> curr : _contener.entrySet()) {
-            list.add(new AbstractMap.SimpleImmutableEntry<>(curr.getKey(), curr.getValue().getName()));
+    public ArrayList<String> getCurrencyList(){
+        ArrayList<String> list = new ArrayList<>();
+        for (Currency curr : _contener) {
+            list.add(curr.getName());
         }
         return list;
     }
 
-    public HashMap<String, Currency> getContener(){
-        return _contener;
-    }
 }

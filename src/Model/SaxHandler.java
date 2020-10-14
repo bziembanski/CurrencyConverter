@@ -1,14 +1,12 @@
-package Controler;
+package Model;
 
-import Model.Currency;
-import Model.CurrencyContener;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 public class SaxHandler extends DefaultHandler {
-    private HashMap<String, Currency> currMap = null;
+    private ArrayList<Currency> currList = null;
     private Currency currency = null;
 
     boolean bScaler = false, bCode = false, bRate = false, bName = false;
@@ -17,8 +15,8 @@ public class SaxHandler extends DefaultHandler {
         switch (qName) {
             case "pozycja" -> {
                 currency = new Currency();
-                if (currMap == null)
-                    currMap = new HashMap<>();
+                if (currList == null)
+                    currList = new ArrayList<>();
             }
             case "nazwa_waluty" -> bName = true;
             case "przelicznik" -> bScaler = true;
@@ -28,7 +26,7 @@ public class SaxHandler extends DefaultHandler {
     }
     public void endElement(String uri, String localName, String qName) {
         if(qName.equals("pozycja")){
-            currMap.put(currency.getCode(), currency);}
+            currList.add(currency);}
     }
 
     public void characters(char[] ch, int start, int length) {
@@ -56,7 +54,13 @@ public class SaxHandler extends DefaultHandler {
     }
 
     public CurrencyContener getCurrencyContener(){
-        return new CurrencyContener(currMap);
+        Currency pln = new Currency();
+        pln.setCode("PLN");
+        pln.setName("złoty polski");
+        pln.setRate(1.0);
+        pln.setScaler(1);
+        currList.add(0,pln);
+        return new CurrencyContener(currList);
     }
 }
 

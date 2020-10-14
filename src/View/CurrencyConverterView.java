@@ -42,8 +42,6 @@ public class CurrencyConverterView {
         JPanel panelCenter = new JPanel();
         panelCenter.setLayout(new GridLayout(2,0));
 
-
-
         panelLineStart.add(comboBoxFrom);
         panelLineStart.add(textFieldFrom);
         panelCenter.add(buttonConvert);

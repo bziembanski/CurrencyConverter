@@ -7,14 +7,15 @@ import java.util.ArrayList;
 
 public class SaxHandler extends DefaultHandler {
     private ArrayList<Currency> currList = null;
-    private Currency currency = null;
+    private String code, name;
+    private Double rate;
+    private Integer scaler;
 
     boolean bScaler = false, bCode = false, bRate = false, bName = false;
 
     public void startElement(String uri, String localName, String qName, Attributes attributes) {
         switch (qName) {
             case "pozycja" -> {
-                currency = new Currency();
                 if (currList == null)
                     currList = new ArrayList<>();
             }
@@ -26,39 +27,35 @@ public class SaxHandler extends DefaultHandler {
     }
     public void endElement(String uri, String localName, String qName) {
         if(qName.equals("pozycja")){
-            currList.add(currency);}
+            currList.add(new Currency(scaler, rate, code, name));}
     }
 
     public void characters(char[] ch, int start, int length) {
         if(bCode){
-            currency.setCode(new String(ch,start,length));
+            code = new String(ch,start,length);
             bCode=false;
         }
         if(bName){
-            currency.setName(new String(ch,start,length));
+            name = new String(ch,start,length);
             bName=false;
         }
         if(bScaler){
-            String scaler = new String(ch,start,length);
-            scaler = scaler.replace(',','.');
-            currency.setScaler(Integer.parseInt(scaler));
+            String tmp = new String(ch,start,length);
+            tmp = tmp.replace(',','.');
+            scaler = Integer.parseInt(tmp);
             bScaler=false;
         }
         if(bRate){
-            String rate = new String(ch,start,length);
-            rate = rate.replace(',','.');
-            currency.setRate(Double.parseDouble(rate));
+            String tmp = new String(ch,start,length);
+            tmp = tmp.replace(',','.');
+            rate = Double.parseDouble(tmp);
             bRate=false;
         }
 
     }
 
     public CurrencyContener getCurrencyContener(){
-        Currency pln = new Currency();
-        pln.setCode("PLN");
-        pln.setName("złoty polski");
-        pln.setRate(1.0);
-        pln.setScaler(1);
+        Currency pln = new Currency(1, 1.0, "PLN", "złoty polski");
         currList.add(0,pln);
         return new CurrencyContener(currList);
     }

@@ -1,8 +1,5 @@
 package Model;
 
-import Model.Currency;
-import Model.CurrencyContener;
-
 public class Converter {
     private final CurrencyContener currencyContener;
 
